@@ -83,3 +83,21 @@ React uses this information to consolidate the Server and Client Components and 
 - A `loading.tsx` has been created in the `about` folder. It contains a spinner. And the `page.tsx` in the `about` folder contains a timer before the `return` statement. So if we visit `localhost:3000/about`, we can see a loading spinner which is being rendered from the `loading.tsx` present in the same folder
 - We can also create a `loading.tsx` in the `app` folder which will act as a fallback, i.e. if any of the routes does not have a `loading.tsx` then this `loading.tsx` present in the `app` route will render for them
 - To show loading information for specific parts within a component, we can use `Suspense` tag from `React`, which we have defined in the `about/page.tsx`
+
+### error.tsx
+
+- Creates a custom error UI that's displayed when an error occurs within a route segment
+- Allows us to display custom error messages, potentially offer solutions and even provide a way for users to recover / report the issue
+
+### global-error.tsx
+
+- It creates a global error UI that catches and handles errors at the root of our Next.js application
+- It ensures that our users always see a meaningful error messages, even if something really goes wrong at high level of our app
+- This file only works in production. So test it, we need to do `npm run build` and `npm run start`
+
+### not-found.tsx
+
+- This creates a custom UI for 404 "Not Found" errors in our Next.js app
+- Its automatically invoked when a route segment cannot be found or when notFound() next.js function is called
+- Writing one on our own is crucial as it provides a better user experience
+- Specific pages can have their own 404 pages
