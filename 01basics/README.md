@@ -57,3 +57,21 @@ React uses this information to consolidate the Server and Client Components and 
 - Its very simple to create dynamic routing with Next.js. Imagine we have 100s of posts each having their own ID and their own content. For this, we do not need to create 100 folders ranging from `blog/posts/1/page.tsx` to `blog/posts/100/page.tsx`, instead we can create `blog/posts/[id]/page.tsx` Here the use of `[]` will allow the dynamic routing
 
 - To get the `id` parameter, it will be passed down to the function inside the `page.tsx`. We can then access that `id` parameter and if necessary fetch the data from a database for that particular ID and display it
+
+### layout.tsx
+
+- It creates a shared layout that wraps around your page content(Here it's the `page.tsx` content)
+- It boosts performance, as the layout will always remain the same for the entire route and only the content inside the layout changes based on the URL you visit
+- The `layout.tsx` in the `app` folder is the `RootLayout` that wraps your entire application
+- The `{children}` prop that is passed down to the export functions in the `layout.tsx` is nothing but the JSX/content from the `page.tsx`
+- Similar to page.tsx, to create a layout for a specific route, we add the `layout.tsx` to that route folder, like we did in the `blog` and `posts` folder
+- The function name inside the `layout.tsx` can be anything
+- The bottom level layouts / pages / routes will inherit the top level layouts. That is the reason, when we visit the `localhost:3000/blog/posts/1`, we see the content from the `layout.tsx` in the `blog` folder as well as the one present at the `app` level which the topmost level `layout.tsx`
+- Layouts are persistent across routes in their scope, meaning that they don't re-render while we switch between pages, thus improving the performance
+
+### template.tsx
+
+- It creates a resuable template that wraps around the page content. A template gives us a fresh instance every time the route changes
+- It is similar to `layout.tsx` but unlike `layout.tsx`, it does not persist between the routes. That is, it gets re-rendered everytime the route / URL changes
+- It is crucial when we need reset between routes. Rese state, trigger enter/exit animations, or run effects
+- For, we change the `blog/layout.tsx` to `blog/template.tsx`. And add "use client" as we will use a framer-motion. Now when we move between differenr `/posts/[id]` urls, we see a smooth page re-rendering implying that our `template.tsx` is being re-rendered
