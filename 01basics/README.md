@@ -75,3 +75,11 @@ React uses this information to consolidate the Server and Client Components and 
 - It is similar to `layout.tsx` but unlike `layout.tsx`, it does not persist between the routes. That is, it gets re-rendered everytime the route / URL changes
 - It is crucial when we need reset between routes. Rese state, trigger enter/exit animations, or run effects
 - For, we change the `blog/layout.tsx` to `blog/template.tsx`. And add "use client" as we will use a framer-motion. Now when we move between differenr `/posts/[id]` urls, we see a smooth page re-rendering implying that our `template.tsx` is being re-rendered
+
+### loading.tsx
+
+- This creates a loading UI that's shown while the content of a route segment is being loaded
+- It will be usefull for improving the user experince, while instead of users staring at a black / partially loaded page, they will see a loading screen / a skeleton ui
+- A `loading.tsx` has been created in the `about` folder. It contains a spinner. And the `page.tsx` in the `about` folder contains a timer before the `return` statement. So if we visit `localhost:3000/about`, we can see a loading spinner which is being rendered from the `loading.tsx` present in the same folder
+- We can also create a `loading.tsx` in the `app` folder which will act as a fallback, i.e. if any of the routes does not have a `loading.tsx` then this `loading.tsx` present in the `app` route will render for them
+- To show loading information for specific parts within a component, we can use `Suspense` tag from `React`, which we have defined in the `about/page.tsx`

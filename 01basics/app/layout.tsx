@@ -29,6 +29,12 @@ export default function RootLayout({
             >
               Blog
             </Link>
+            <Link
+              className="hover:bg-blue-500 hover:text-white hover:rounded-md hover:px-2"
+              href={"/about"}
+            >
+              About
+            </Link>
           </nav>
         </div>
         <div className="flex flex-col items-center justify-center min-h-screen">
