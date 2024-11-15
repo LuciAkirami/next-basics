@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Project - FullStack Next.js with MongoDB and Appwrite
 
-## Getting Started
+-   All the backend code is usually contained in `/app/api`, where we define all the routes
 
-First, run the development server:
+### How the verification works?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   So whenever a user hits an api call to `/user/profile`, a random string / encrypted string is generated (we use bcryptjs for this). This generated string is stored inside the `verifiedToken` and saved in the database of that user.
+-   One copy of the encrypted string is even sent to the user/browser/email. Here, the api does not store anything. It just generates the encrypted string and a copy of it is stored in the database and another saved at user/browser
+-   So, let's say if I signup to the website, the api creates this encrypted string, stores a copy of it in the database. And sends another copy to my email address, asking to click it to verify
+-   When I click on the verify link the email. The api is called again, it will try to parse this token from the URL and check if it matches to any of the users in the database (it checks the `verifyToken`) and if it matches, then it returns a `User` object and the `isVerified` propoerty fo the `User` object is set to `true`
+-   Along with generating the `verifyToken`, we also generate a `verifyTokenExpiry`, so that the user should click on the very email within a given time else the link becomes invalid
+-   This `verifyTokenExpiry`, the api checks this when the user clicks on the verify link and the `verifyToken` matches to any of the user in the database. And if its not expired, then `isVerified` is set to `true`, else a new encrypted string is generated
+-   The forgot password also works in the similar manner and when a user is matched, instead of setting `isVerified` to `true`, the `user.password` is set to the password provided by the user
