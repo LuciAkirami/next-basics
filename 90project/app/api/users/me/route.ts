@@ -22,3 +22,6 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: error.message }, { status: 400 });
     }
 }
+
+// we can use this route whenever we want to fetch the details of user who
+// is logged in

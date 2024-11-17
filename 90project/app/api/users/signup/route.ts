@@ -4,6 +4,7 @@ import User from "@/models/userModel";
 // in express
 import { NextRequest, NextResponse } from "next/server";
 import bycrypts from "bcryptjs";
+import { sendEmail } from "@/helpers/mailer";
 // connect to the database, we do not need to resolve the promise
 connect();
 
@@ -49,6 +50,9 @@ export async function POST(request: NextRequest) {
         //     { status: 201 }
         // );
         // or the below
+
+        // send a email to verify the user
+        await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
         return NextResponse.json({
             message: "User created successfully",
             success: true,
