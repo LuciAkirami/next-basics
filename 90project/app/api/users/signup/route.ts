@@ -53,6 +53,8 @@ export async function POST(request: NextRequest) {
 
         // send a email to verify the user
         await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
+
+        // to verify the user, we call the app/verifyemail/route.ts in app/verifyemail/page.tsx
         return NextResponse.json({
             message: "User created successfully",
             success: true,

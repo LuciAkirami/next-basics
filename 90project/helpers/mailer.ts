@@ -7,6 +7,9 @@
 // domain.com/veriftoken/asfasgfdi
 // here we can access the token through the "params"
 
+// we call this function inside the /app/signup/route.ts, so to send a
+// verification mail as soon as the user signs up
+
 import nodemailer from "nodemailer";
 import User from "@/models/userModel";
 import bycryptjs from "bcryptjs";
@@ -68,5 +71,16 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     }
 };
 
+// As we are giving domain_name/verifyemail?token, we need to create a
+// verifyemail page, i.e. creating a folde on that name in next.js and
+// inside its page.tsx, we extract the hashedToken
+
 // To Do
 // change the emailType to an Enum
+
+// ToDo - Use Better Hash
+// The dots(.) and other special characters in the hashedToken may produce
+// errors while pasting the url with the hashedtoken in the browser. So
+// check for other approaches
+
+// ToDo - Create a Forgot email password

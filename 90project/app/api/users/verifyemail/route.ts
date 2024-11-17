@@ -4,6 +4,7 @@ import User from "@/models/userModel";
 
 connect();
 
+// This route is called in app/verifyemail/page.tsx
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json();

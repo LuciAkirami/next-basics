@@ -8,7 +8,8 @@ export function middleware(request: NextRequest) {
 
     // check if the user is in logn or signup and
     // if they are, set it to true, else false
-    const isPublicPath = path === "/login" || path === "/signup";
+    const isPublicPath =
+        path === "/login" || path === "/signup" || path === "/verifyemail";
 
     // get the cookie token from the browser if it exits else
     // store empty string
@@ -52,5 +53,12 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ["/", "/profile", "/login", "/signup", "/profile/:path*"],
+    matcher: [
+        "/",
+        "/profile",
+        "/login",
+        "/signup",
+        "/profile/:path*",
+        "/verifyemail",
+    ],
 };
